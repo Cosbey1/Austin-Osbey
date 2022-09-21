@@ -12,7 +12,11 @@ const urlGlitch = 'https://hissing-acute-crafter.glitch.me/movies'
 //     body: JSON.stringify(blogPost), // blogPost will change to include details about what we are stringifying
 // };
 
-const getMovieData = async () => {
+// GRAB MOVIE TILES CONTAINER
+const movieTile = document.querySelector("movie-tiles-container");
+
+// GET ALL MOVIE DATA AND CONSOLE LOG
+const getMoviesData = async () => {
     try {
         const res = await axios.get(urlGlitch);
         console.log(res.data);
@@ -21,4 +25,22 @@ const getMovieData = async () => {
     }
 };
 
-getMovieData();
+getMoviesData();
+
+// GET MOVIE INFO BY ID
+const getMovieInfo = async () => {
+    try {
+        const res = await axios.get(`https://hissing-acute-crafter.glitch.me/movies/?id=260`);
+        return res.data.title;
+    } catch (e) {
+        return "It's broken, fix it!";
+    }
+};
+
+
+const addNewMovie = async () => {
+    const movieText = await getMovieInfo();
+    const createTile = document.createElement("div");
+    createTile.append(movieText);
+    movieTile.append(createTile);
+};
