@@ -14,7 +14,6 @@ const urlGlitch = 'https://hissing-acute-crafter.glitch.me/movies'
 
 // GRAB MOVIE TILES CONTAINER
 const movieTileContainer = document.querySelector("#movie-tiles-container");
-const createTile = document.createElement("div");
 
 
 // GET ALL MOVIE DATA
@@ -27,7 +26,6 @@ const getMoviesData = async () => {
     }
 };
 
-const allMovieData = getMoviesData();
 
 // GET MOVIE INFO SPECIFIC ID
 const getMovieInfo = async () => {
@@ -47,9 +45,17 @@ const addNewMovie = async () => {
 };
 
 const allMoviesAdded = async () => {
-        const movieText = await getMoviesData();
-        for (let movie of allMovieData) {
-            createTile.append(movieText)
-            movieTileContainer.append(createTile);
-        }
+    const allMovieData = await getMoviesData()
+    for (let movie of allMovieData) {
+        const createTile = document.createElement("div")
+        createTile.setAttribute("class", "card movie-tile");
+        createTile.setHTML
+        (`<p>${movie.title}</p>
+            <p>${movie.rating}</p>
+            <p>${movie.director}</p>
+        `);
+        movieTileContainer.append(createTile);
+    }
 };
+
+// FOR
