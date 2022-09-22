@@ -52,15 +52,23 @@ const allMoviesAdded = async () => {
 
 allMoviesAdded();
 
-const toggleLoading = () => {
-    allMoviesAdded()
+// TIMEOUT FUNCTION
+function timeout (ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+// HIDE LOADER
+const toggleLoading = async () => {
+    await timeout(1200)
     let loader = document.querySelector('#loader-container')
     loader.classList.toggle('hidden')
 }
-toggleLoading()
-// const showMovies = async () => {
-//     await toggleLoading()
-//     let movieContainer = document.querySelector('#loader-container')
-//     movieContainer.classList.toggle('hidden')
-// }
-// showMovies();
+toggleLoading();
+
+// SHOW MOVIE CONTAINER
+const showMovies = async () => {
+    await timeout(1300)
+    let movieContainer = document.querySelector('#movie-container')
+    movieContainer.classList.toggle('hidden')
+}
+
+showMovies();
