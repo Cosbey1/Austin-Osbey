@@ -22,11 +22,12 @@ const getMoviesData = async () => {
 const getMovieInfo = async () => {
     try {
         const res = await axios.get(`https://hissing-acute-crafter.glitch.me/movies/?id=1`);
-        return res.data[0].title;
+        return res.data[0];
     } catch (e) {
         return `It's broken, fix it! ${e}`;
     }
 };
+
 // ADD NEW DIV INTO MOVIE TILE CONTAINER
 const addNewMovie = async () => {
     const movieText = await getMovieInfo();
@@ -52,15 +53,42 @@ const allMoviesAdded = async () => {
 
 allMoviesAdded();
 
-const toggleLoading = () => {
-    allMoviesAdded()
+// TIMEOUT FUNCTION
+function timeout (ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+// HIDE LOADER
+const toggleLoading = async () => {
+    await timeout(1200)
     let loader = document.querySelector('#loader-container')
     loader.classList.toggle('hidden')
 }
-toggleLoading()
-// const showMovies = async () => {
-//     await toggleLoading()
-//     let movieContainer = document.querySelector('#loader-container')
-//     movieContainer.classList.toggle('hidden')
+toggleLoading();
+
+// SHOW MOVIE CONTAINER
+const showMovies = async () => {
+    await timeout(1700)
+    let movieContainer = document.querySelector('#movie-container')
+    movieContainer.classList.toggle('hidden')
+}
+showMovies();
+
+// const testDumbButton = () => {
+//     console.log('fuck this button')
 // }
-// showMovies();
+// ADD MOVIE POST REQUEST
+const postNewMovie = async () => {
+    try {
+        const res = axios.post('https://hissing-acute-crafter.glitch.me/movies/', {
+            data: {
+                title: 'Fred',
+                director: 'Flintstone',
+                rating: `9.9`
+            }
+        });
+        return res;
+    } catch (e) {
+        return `It's broken, fix it! ${e}`;
+    }
+};
+
