@@ -73,9 +73,7 @@ const showMovies = async () => {
 }
 showMovies();
 
-// const testDumbButton = () => {
-//     console.log('fuck this button')
-// }
+
 // ADD MOVIE POST REQUEST
 const postNewMovie = async () => {
     try {
