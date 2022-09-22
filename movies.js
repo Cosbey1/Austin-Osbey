@@ -22,11 +22,12 @@ const getMoviesData = async () => {
 const getMovieInfo = async () => {
     try {
         const res = await axios.get(`https://hissing-acute-crafter.glitch.me/movies/?id=1`);
-        return res.data[0].title;
+        return res.data[0];
     } catch (e) {
         return `It's broken, fix it! ${e}`;
     }
 };
+
 // ADD NEW DIV INTO MOVIE TILE CONTAINER
 const addNewMovie = async () => {
     const movieText = await getMovieInfo();
@@ -72,12 +73,20 @@ const showMovies = async () => {
 }
 showMovies();
 
+// const testDumbButton = () => {
+//     console.log('fuck this button')
+// }
 // ADD MOVIE POST REQUEST
-
 const postNewMovie = async () => {
     try {
-        const res = await axios.post(`https://hissing-acute-crafter.glitch.me/movies/`);
-        return res.data[0].title;
+        const res = axios.post('https://hissing-acute-crafter.glitch.me/movies/', {
+            data: {
+                title: 'Fred',
+                director: 'Flintstone',
+                rating: `9.9`
+            }
+        });
+        return res;
     } catch (e) {
         return `It's broken, fix it! ${e}`;
     }

@@ -6,7 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://bootswatch.com/5/spacelab/bootstrap.min.css">
+    <link rel="stylesheet" href="movies.css">
     <title>Red Sloth Movies</title>
 </head>
 <body>
@@ -74,7 +75,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="addMovieForm" method="post" action="#">
                         <div class="mb-3">
                             <label for="movieTitle" class="form-label">Title</label>
                             <input type="text" class="form-control" id="movieTitle">
@@ -95,7 +96,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button form="addMovieForm" id="saveNewMovie" onclick="testDumbButton()" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -121,6 +122,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <script src="movies.js"></script>
-<link rel="stylesheet" href="movies.css">
+
 </body>
 </html>
