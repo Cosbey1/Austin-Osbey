@@ -66,9 +66,20 @@ toggleLoading();
 
 // SHOW MOVIE CONTAINER
 const showMovies = async () => {
-    await timeout(1300)
+    await timeout(1700)
     let movieContainer = document.querySelector('#movie-container')
     movieContainer.classList.toggle('hidden')
 }
-
 showMovies();
+
+// ADD MOVIE POST REQUEST
+
+const postNewMovie = async () => {
+    try {
+        const res = await axios.post(`https://hissing-acute-crafter.glitch.me/movies/`);
+        return res.data[0].title;
+    } catch (e) {
+        return `It's broken, fix it! ${e}`;
+    }
+};
+
