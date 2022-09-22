@@ -73,7 +73,7 @@ const showMovies = async () => {
 }
 showMovies();
 
-
+// --
 // ADD MOVIE POST REQUEST
 const postNewMovie = async () => {
     try {
