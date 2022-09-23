@@ -11,34 +11,16 @@ const movieTileContainer = document.querySelector("#movie-tiles-container");
 const getMoviesData = async () => {
     try {
         const res = await axios.get(urlGlitch);
-        return res.data;
+        return res.data; // res = an array with each movie as an object
     } catch (e) {
         console.log("ERROR", e);
     }
 };
-
-
-// GET MOVIE INFO SPECIFIC ID
-const getMovieInfo = async () => {
-    try {
-        const res = await axios.get(`https://hissing-acute-crafter.glitch.me/movies/?id=1`);
-        return res.data[0];
-    } catch (e) {
-        return `It's broken, fix it! ${e}`;
-    }
-};
-
-// ADD NEW DIV INTO MOVIE TILE CONTAINER
-const addNewMovie = async () => {
-    const movieText = await getMovieInfo();
-    console.log(movieText)
-    createTile.append(movieText);
-    movieTileContainer.append(createTile);
-};
+// ??? Need to save res from above as a global variable so I can write an if stmt that checks if its a repeat, and displays if its not.
 
 // ADD ALL MOVIE TILES ON PAGE
 const allMoviesAdded = async () => {
-    const allMovieData = await getMoviesData()
+    let allMovieData = await getMoviesData()
     for (let movie of allMovieData) {
         const createTile = document.createElement("div")
         createTile.setAttribute("class", "card movie-tile");
@@ -46,6 +28,12 @@ const allMoviesAdded = async () => {
         (`<p>${movie.title}</p>
             <p>${movie.rating}</p>
             <p>${movie.director}</p>
+            <div>
+             <button class="cardButton ms-1" type="button">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> Edit</button>
+                                    <button class="cardButton" type="button">
+                                        <i class="fa-solid fa-trash-can"></i> Delete</button>
+</div>
         `);
         movieTileContainer.append(createTile);
     }
@@ -53,10 +41,12 @@ const allMoviesAdded = async () => {
 
 allMoviesAdded();
 
+// SHOW/HIDE LOADER AND MOVIES
 // TIMEOUT FUNCTION
-function timeout (ms) {
+function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 // HIDE LOADER
 const toggleLoading = async () => {
     await timeout(1200)
@@ -67,26 +57,42 @@ toggleLoading();
 
 // SHOW MOVIE CONTAINER
 const showMovies = async () => {
-    await timeout(1700)
+    await timeout(1300)
     let movieContainer = document.querySelector('#movie-container')
     movieContainer.classList.toggle('hidden')
 }
 showMovies();
+// END SHOW / HIDE LOADER & MOVIES
 
-// --
-// ADD MOVIE POST REQUEST
-const postNewMovie = async () => {
+
+// ADD NEW MOVIE FORM -- adds new movie to database, does not show up on page until reload though
+const getAddValues = async () => {
     try {
-        const res = axios.post('https://hissing-acute-crafter.glitch.me/movies/', {
-            data: {
-                title: 'Fred',
-                director: 'Flintstone',
-                rating: `9.9`
-            }
+        const director = document.querySelector("#director").value;
+        const title = document.querySelector('#movieTitle').value;
+        const rating = document.querySelector('#rating').value;
+        const res = axios.post(`glitchURL`, {
+                title: `${title}`,
+                director: `${director}`,
+                rating: `${rating}`
         });
+        console.log(`you did it`)
         return res;
     } catch (e) {
-        return `It's broken, fix it! ${e}`;
+        return `add Movie is broken, fix it! ${e}`
     }
 };
+
+const refreshMovieList = async () => {
+    await getAddValues();
+    movieTileContainer.setHTML(``);
+    allMoviesAdded();
+}
+
+const deleteMovie = async () => {
+
+}
+
+
+
 
