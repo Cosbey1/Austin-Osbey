@@ -62,5 +62,12 @@
 // };
 
 
+// const setDeleteClick = async () => {
+//     await allMoviesAdded();
+//     const deleteButton = document.querySelector('.cardButtonDelete')
+//     deleteButton.setAttribute("onclick", "testButton")
+// }
+// setDeleteClick();
+
 
 
