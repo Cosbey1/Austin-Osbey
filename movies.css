@@ -2,9 +2,10 @@
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     animation: spin 2s linear infinite;
+
 }
 
 @keyframes spin {
@@ -22,3 +23,39 @@
 .hidden {
     visibility: hidden;
 }
+
+#sloth {
+    padding: 1em;
+}
+
+body {
+    background-image: url("sky.jpg");
+}
+
+.cardcontainer {
+    height: 100%;
+    width: 355px;
+}
+
+.photo {
+    background-color: #f3f3f3;
+    /*height: 40%;*/
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.content{
+    background-color: #f3f3f3;
+}
+.cardcontainer>photo>img{
+    width: 170px;
+    height: 170px;
+    /*margin: 0 auto;*/
+}
+
+#movie-tiles-container > div > div > div > div > img {
+    width: 330px;
+    height: 330px;
+    /*margin: 0 auto;*/
+}
+/*}*/
