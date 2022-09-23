@@ -14,13 +14,18 @@ const urlGlitch = 'https://hissing-acute-crafter.glitch.me/movies'
 // GRAB MOVIE TILES CONTAINER
 const movieTileContainer = document.querySelector("#movie-tiles-container");
 
+// GRAB ADD MOVIE FORM
+const addForm = document.querySelector('#addMovieForm')
+
 const refreshMovieList = async () => {
     await getAddValues();
     // await deleteMovie()
     //await movieTileContainer.setHTML('');
     await allMoviesAdded();
-};
+    await addForm.reset();
 
+};
+// ADD MOVIE DATA TO SERVER (POST REQUEST)
 const getAddValues = async () => {
     try {
         const director = document.querySelector("#director").value;
@@ -57,13 +62,18 @@ const allMoviesAdded = async () => {
         const createTile = document.createElement("div")
         createTile.setAttribute("class", "card movie-tile");
         createTile.setHTML
-        (`<p>${movie.title}</p>
-            <p>${movie.rating}</p>
-            <p>${movie.director}</p>
-            <div>
+        (` <div class="container">
+                        <div class="cardcontainer">
+                            <div class="photo">
+                                <!--movie info section-->
+                                <div class="content">
+                                    <h1 class="title">${movie.title}</h1>
+                                    <h4 class="director">${movie.director}</h4>
+                                </div>
+                                <div class="footer">
              <button class="cardButton ms-1" type="button">
                   <i class="fa-solid fa-wand-magic-sparkles"></i> Edit</button>
-             <button class="cardButtonDelete" id="${movie.id}" onclick="deleteRequest(movie.id)" type="button">Delete</button>
+             <button class="cardButtonDelete" id="${movie.id}" onclick="deleteRequest(movie.id)" type="button"><i class="fa-solid fa-trash-can"></i>Delete</button>
 </div>`
         );
         movieTileContainer.append(createTile)
@@ -76,7 +86,6 @@ allMoviesAdded();
 
 function getDelete() {
     const deleteButtons = document.querySelectorAll('.cardButtonDelete')
-
     for (let button of deleteButtons) {
         let movieId = button.id
         button.addEventListener("click", function () {
@@ -84,7 +93,6 @@ function getDelete() {
         }, false)
         //console.log(button)
     }
-    ;
 
 
 // SHOW/HIDE LOADER AND MOVIES
@@ -117,9 +125,7 @@ function getDelete() {
 // END SHOW / HIDE LOADER & MOVIES
 
 
-// ADD NEW MOVIE FORM -- adds new movie to database, does not show up on page until reload though
-
-
+//DELETE MOVIE FUNCTION
     async function deleteRequest(id) {
         try {
             await axios.delete(`${urlGlitch}/${id}`)
