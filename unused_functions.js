@@ -39,3 +39,4 @@ function getDelete() {
     console.log(deleteButton)
     deleteButton[1].addEventListener('click', ()=> console.log('Hello World!'))
 }
+

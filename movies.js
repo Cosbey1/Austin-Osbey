@@ -1,12 +1,5 @@
 "use strict";
 
-function testButton() {
-    try {
-        console.log('the button click ran the function')
-    } catch (e) {
-        console.log(`delete button onclick, ${e}`)
-    }
-}
 
 // URL for Glitch fake Movies API
 const urlGlitch = 'https://hissing-acute-crafter.glitch.me/movies'
@@ -17,15 +10,17 @@ const movieTileContainer = document.querySelector("#movie-tiles-container");
 // GRAB ADD MOVIE FORM
 const addForm = document.querySelector('#addMovieForm')
 
+//REFRESH MOVIE RUNS ON THE CLICK OF 'SAVE' IN ADD NEW MOVIE
 const refreshMovieList = async () => {
-    await getAddValues();
+    await getAddValues(); // post request for the new movie
     // await deleteMovie()
     //await movieTileContainer.setHTML('');
-    await allMoviesAdded();
-    await addForm.reset();
+    await allMoviesAdded(); // get all movie data and populate cards
+    await addForm.reset(); // resets the form so fields empty
 
 };
-// ADD MOVIE DATA TO SERVER (POST REQUEST)
+
+// ADD NEW MOVIE DATA TO SERVER (POST REQUEST)
 const getAddValues = async () => {
     try {
         const director = document.querySelector("#director").value;
@@ -43,7 +38,7 @@ const getAddValues = async () => {
     }
 };
 
-// GET ALL MOVIE DATA
+// GET ALL MOVIE DATA -- GET REQUEST FOR ALL MOVIE DATA FROM GLITCH
 const getMoviesData = async () => {
     try {
         const res = await axios.get(urlGlitch);
@@ -52,16 +47,16 @@ const getMoviesData = async () => {
         console.log("ERROR", e);
     }
 };
-// ??? Need to save res from above as a global variable so I can write an if stmt that checks if its a repeat, and displays if its not.
+
 // ADD ALL MOVIE TILES ON PAGE
 const allMoviesAdded = async () => {
     movieTileContainer.setHTML(``);
-    let allMovieData = await getMoviesData()
+    let allMovieData = await getMoviesData() // runs get request for all movies from glitch
     for (let movie of allMovieData) {
         console.log('loop')
-        const createTile = document.createElement("div")
-        createTile.setAttribute("class", "card movie-tile");
-        createTile.setHTML
+        const createTile = document.createElement("div") //creates a div for every movie in the datalist
+        createTile.setAttribute("class", "card movie-tile"); //sets attributes for card
+        createTile.setHTML // sets all html inside new moviecard div
         (` <div class="container">
                         <div class="cardcontainer">
                             <div class="photo">
@@ -71,20 +66,20 @@ const allMoviesAdded = async () => {
                                     <h4 class="director">${movie.director}</h4>
                                 </div>
                                 <div class="footer">
-             <button class="cardButton ms-1" type="button">
+             <button class="cardButtonEdit ms-1" id="edit${movie.id}" type="button">
                   <i class="fa-solid fa-wand-magic-sparkles"></i> Edit</button>
-             <button class="cardButtonDelete" id="${movie.id}" onclick="deleteRequest(movie.id)" type="button"><i class="fa-solid fa-trash-can"></i>Delete</button>
+             <button class="cardButtonDelete" id="${movie.id}" type="button"><i class="fa-solid fa-trash-can"></i>Delete</button>
 </div>`
         );
-        movieTileContainer.append(createTile)
+        movieTileContainer.append(createTile) // adds all the new creatTile divs into the movie til container
     }
-    getDelete(); // running the get delete here successfully gets all the buttons
+    getDelete(); // running the get delete here associates the movie id with its button
 };
 
-allMoviesAdded();
+allMoviesAdded(); // initial call to retrieve all the movie data and populate the cards
 
 
-function getDelete() {
+function getDelete() { // this adds the event listener to each particular button and passes the deleterequest function with the id as a parameter
     const deleteButtons = document.querySelectorAll('.cardButtonDelete')
     for (let button of deleteButtons) {
         let movieId = button.id
