@@ -40,3 +40,12 @@ function getDelete() {
     deleteButton[1].addEventListener('click', ()=> console.log('Hello World!'))
 }
 
+function getEdit() {
+    const editButtons = document.querySelectorAll('.cardButtonEdit')
+    for (let button of editButtons) {
+        let movieId = button.id
+        button.addEventListener("click", function () {
+            console.log(movieId)
+        }, false)
+        //console.log(button)
+    }}

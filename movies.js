@@ -74,11 +74,12 @@ const allMoviesAdded = async () => {
         movieTileContainer.append(createTile) // adds all the new creatTile divs into the movie til container
     }
     getDelete(); // running the get delete here associates the movie id with its button
+    getEdit();
 };
 
 allMoviesAdded(); // initial call to retrieve all the movie data and populate the cards
 
-
+// DELETE BUTTON FUNCTIONALITY
 function getDelete() { // this adds the event listener to each particular button and passes the deleterequest function with the id as a parameter
     const deleteButtons = document.querySelectorAll('.cardButtonDelete')
     for (let button of deleteButtons) {
@@ -87,8 +88,16 @@ function getDelete() { // this adds the event listener to each particular button
             deleteRequest(movieId)
         }, false)
         //console.log(button)
-    }
-
+    }}
+function getEdit() {
+    const editButtons = document.querySelectorAll('.cardButtonEdit')
+    for (let button of editButtons) {
+        let movieId = button.id
+        button.addEventListener("click", function () {
+            console.log(movieId)
+        }, false)
+        //console.log(button)
+    }}
 
 // SHOW/HIDE LOADER AND MOVIES
 // TIMEOUT FUNCTION
@@ -120,7 +129,7 @@ function getDelete() { // this adds the event listener to each particular button
 // END SHOW / HIDE LOADER & MOVIES
 
 
-//DELETE MOVIE FUNCTION
+//DELETE MOVIE FUNCTION - SENDS DELETE REQUEST
     async function deleteRequest(id) {
         try {
             await axios.delete(`${urlGlitch}/${id}`)
@@ -131,7 +140,7 @@ function getDelete() { // this adds the event listener to each particular button
             console.log(`delete request failed, ${e}`)
         }
     }
-}
+// }
 
 
 

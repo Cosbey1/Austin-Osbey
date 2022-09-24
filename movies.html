@@ -98,7 +98,46 @@
     </div>
     <!--NAVBAR ENDS-->
 
-    <!--ADD MOVIE MODAL-->
+    <!--EDIT MOVIE MODAL-->
+    <div class="modal fade" id="editMovie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMovieHead">EDIT MOVIE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editMovieForm" method="post" action="#">
+                        <div class="mb-3">
+                            <label for="movieTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="editMovieTitle">
+                            <div id="editMovieTitleHelp" class="form-text">Add the title of your favorite movie</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="director" class="form-label">Director</label>
+                            <input type="text" class="form-control" id="editDirector">
+                            <div id="editDirectorHelp" class="form-text">Add the director's first and last name</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <input type="text" class="form-control" id="editRating">
+                            <div id="editRatingHelp" class="form-text">Add your personal rating</div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button form="editMovieForm" id="saveEditMovie" onclick="refreshMovieList()" type="button"
+                            class="btn btn-primary" data-bs-dismiss="modal">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--EDIT MOVIE MODAL ENDS-->
+
+<!--    ADD MOVIE MODAL-->
     <div class="modal fade" id="addMovie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -136,7 +175,6 @@
         </div>
     </div>
     <!--ADD MOVIE MODAL ENDS-->
-
 
     <!--START MOVIE TILES-->
     <div class="container movie-grid-container" id="movie-grid">
