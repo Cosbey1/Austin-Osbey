@@ -24,14 +24,15 @@
 <!--End HEADER-->
 
 <!--LOADING DIV-->
-<div class="loader" id="loader-container"></div>
+<div class="container-fluid loader" id="loader-container"></div>
 <!--END LOADING DIV-->
 <output id="output"></output>
+
 <!--CONTAINER FOR ALL MOVIE THINGS HIDDEN UNTIL LOADING FINISHES-->
 <div class="container hidden" id="movie-container">
 
     <!--NAVBAR FILTER NAVBAR-->
-    <div class="container d-flex">
+    <div class="container-fluid d-flex">
         <!--SORT BY DROPDOWN-->
         <div class="dropdown" id="sort-by">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
@@ -52,55 +53,51 @@
                     <button class="dropdown-item" type="button">Lowest Rating</button>
                 </li>
             </ul>
-        </div>
-        <!--SORT BY ENDS-->
+        </div> <!--SORT BY DIV CLOSER-->
+
         <!--GENRE DROPDOWN-->
-        <div class="dropdown" id="genre2">
+        <div class="dropdown" id="genre">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu5" data-bs-toggle="dropdown"
                     aria-expanded="false">
                 Genre
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                 <li>
-                    <button class="dropdown-item" type="button"><input class="me-1" type="checkbox"
-                                                                       class="form-check-input">All
+                    <button class="dropdown-item" type="button"><input type="checkbox" class="form-check-input me-1">All</button>
+                </li>
+                <li>
+                    <button class="dropdown-item" type="button"><input type="checkbox" class="form-check-input me-1">Action
                     </button>
                 </li>
                 <li>
-                    <button class="dropdown-item" type="button"><input class="me-1" type="checkbox"
-                                                                       class="form-check-input">Action
+                    <button class="dropdown-item" type="button"><input class="me-1" type="checkbox" class="form-check-input">Drama
                     </button>
                 </li>
                 <li>
-                    <button class="dropdown-item" type="button"><input class="me-1" type="checkbox"
-                                                                       class="form-check-input">Drama
+                    <button class="dropdown-item" type="button"><input type="checkbox"class="form-check-input me-1">Adventure
                     </button>
                 </li>
                 <li>
-                    <button class="dropdown-item" type="button"><input class="me-1" type="checkbox"
-                                                                       class="form-check-input">Adventure
-                    </button>
-                </li>
-                <li>
-                    <button class="dropdown-item" type="button"><input class="me-1" type="checkbox"
-                                                                       class="form-check-input">Crime
+                    <button class="dropdown-item" type="button"><input type="checkbox"
+class="form-check-input me-1">Crime
                     </button>
                 </li>
             </ul>
-        </div>
+        </div> <!-- genre div closer -->
         <!--GENRE DROPDOWN ENDS -->
 
         <!--ADD MOVIE BUTTON-->
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addMovie">
+        <button type="button m-2" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addMovie">
             ADD A MOVIE
-        </button>
-        <!--ADD MOVIE ENDS-->
-    </div>
-<!--    Test edit modal launch-->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovie">
-        edit movie test button
-    </button>
-    <!--NAVBAR ENDS-->
+        </button> <!--ADD MOVIE BUTTON ENDS-->
+
+
+    <!--    Test edit modal launch-->
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" id="editTestButton" data-bs-target="#editMovie">
+        edit movie test button</button>
+        <button type="button" id="testingEdit" class="btn btn-secondary" >
+            second test button</button>
+    </div> <!-- NAV BAR DIV CLOSING -->
 
     <!--EDIT MOVIE MODAL-->
     <div class="modal fade" id="editMovie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,20 +117,24 @@
                         <div class="mb-3">
                             <label for="director" class="form-label">Director</label>
                             <input type="text" class="form-control" id="editDirector">
-                            <div id="editDirectorHelp" class="form-text">Add the director's first and last name</div>
+                            <div id="editDirectorHelp" class="form-text">Edit the director name</div>
                         </div>
                         <div class="mb-3">
                             <label for="rating" class="form-label">Rating</label>
                             <input type="text" class="form-control" id="editRating">
-                            <div id="editRatingHelp" class="form-text">Add your personal rating</div>
-
+                            <div id="editRatingHelp" class="form-text">Edit your personal rating</div>
                         </div>
-                    </form>
-                </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">ID</label>
+                            <input type="text" class="form-control" id="editID">
+                            <div id="idHelp" class="form-text">This field cannot be edited</div>
+                        </div>
+                    </form> <!-- edit movie form -->
+                </div> <!-- edit movie modal closing div -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button form="editMovieForm" id="saveEditMovie" onclick="editRefresh()" type="button"
-                            class="btn btn-primary" data-bs-dismiss="modal">Save
+                    <button form="editMovieForm" id="saveEditMovie" onclick="editRequest(id)" type="button"
+                            class="btn btn-primary" data-bs-dismiss="modal">Save <!-- Need to figure out how to pass id inside the onclick function -->
                     </button>
                 </div>
             </div>
@@ -141,7 +142,7 @@
     </div>
     <!--EDIT MOVIE MODAL ENDS-->
 
-<!--    ADD MOVIE MODAL-->
+    <!--    ADD MOVIE MODAL-->
     <div class="modal fade" id="addMovie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

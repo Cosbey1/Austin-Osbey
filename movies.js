@@ -1,5 +1,11 @@
 "use strict";
 
+const getEditButton = document.querySelector('#testingEdit')
+function testingEdit () {
+    getEditButton.dataset.target = '#editMovie'
+    getEditButton.dataset.toggle = 'modal'
+    console.log('something happened')}
+testingEdit();
 
 // URL for Glitch fake Movies API
 const urlGlitch = 'https://hissing-acute-crafter.glitch.me/movies'
@@ -10,6 +16,9 @@ const movieTileContainer = document.querySelector("#movie-tiles-container");
 // GRAB ADD MOVIE FORM
 const addForm = document.querySelector('#addMovieForm')
 
+// GRAB EDIT MOVIE FORM
+const editForm = document.querySelector('#editMovieForm')
+
 //REFRESH MOVIE RUNS ON THE CLICK OF 'SAVE' IN ADD NEW MOVIE
 const refreshMovieList = async () => {
     await getAddValues(); // post request for the new movie
@@ -19,6 +28,8 @@ const refreshMovieList = async () => {
     await addForm.reset(); // resets the form so fields empty
 
 };
+
+// const editButton = document.querySelectorAll('#cardButtonEdit')
 
 // ADD NEW MOVIE DATA TO SERVER (POST REQUEST)
 const getAddValues = async () => {
@@ -53,7 +64,6 @@ const allMoviesAdded = async () => {
     movieTileContainer.setHTML(``);
     let allMovieData = await getMoviesData() // runs get request for all movies from glitch
     for (let movie of allMovieData) {
-        console.log('loop')
         const createTile = document.createElement("div") //creates a div for every movie in the datalist
         createTile.setAttribute("class", "card movie-tile"); //sets attributes for card
         createTile.setHTML // sets all html inside new moviecard div
@@ -90,18 +100,18 @@ function getDelete() { // this adds the event listener to each particular button
         //console.log(button)
     }}
 
-const openEdit = document.querySelector('#editMovie')
+// function assignEdit () {
+    // editButton.dataset.target = '#editMovie'
+// }
 
-
-// open modal
+// EDIT BUTTON FUNCTIONALITY
 function getEdit() {
     const editButtons = document.querySelectorAll('.cardButtonEdit')
     for (let button of editButtons) {
         let movieId = button.id
-        button.addEventListener("click", function () {
-            (movieId) // need function that opens the edit modal
+        button.addEventListener("click", function () { editForm.show(modalToggle)
+            console.log(movieId) // need function that opens the edit modal
         }, false)
-        //console.log(button)
     }}
 
 // SHOW/HIDE LOADER AND MOVIES
@@ -117,14 +127,13 @@ function getEdit() {
         loader.classList.add('hidden')
     }
 
-
 // SHOW MOVIE CONTAINER
     const showMovies = async () => {
         // await timeout(1300)
         let movieContainer = document.querySelector('#movie-container')
         movieContainer.classList.remove('hidden')
     }
-
+// FUNCTION TO RUN BOTH THE ADD CLASS TO LOADER AND REMOVE CLASS FROM MOVIE CONTAINER
     const mainFunc = async () => {
         await toggleLoading();
         await showMovies();
@@ -152,26 +161,32 @@ async function editRequest(id) {
         const director = document.querySelector("#editDirector").value;
         const title = document.querySelector('#editMovieTitle').value;
         const rating = document.querySelector('#editRating').value;
-        const res = axios.post(urlGlitch`/${movie.id}`, {
+        const res = axios.patch(`${urlGlitch}/${id}`, {
             title: `${title}`,
             director: `${director}`,
             rating: `${rating}`
         });
-        await axios.patch(`${urlGlitch}/${id}`)
         await timeout(1200)
         console.log('EDIT WIN')
+        allMoviesAdded()
+        console.log(res)
     } catch (e) {
         console.log(`edit request failed, ${e}`)
     }
 }
 
+// EDIT REFRESH -
 const editRefresh = async () => {
     await editRequest(); // patch request for the new movie
     // await deleteMovie()
     //await movieTileContainer.setHTML('');
     await allMoviesAdded(); // get all movie data and populate cards
-    await addForm.reset(); // resets the form so fields empty
-
+    await editForm.reset(); // resets the form so fields empty
 };
 
 
+// FUNCTION TO OPEN EDIT MODAL
+
+const autoFillEdit = function (id, director, title, rating) {
+
+}
