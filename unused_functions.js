@@ -49,3 +49,23 @@ function getEdit() {
         }, false)
         //console.log(button)
     }}
+
+//EDIT MOVIE FUNCTION - SENDS PATCH REQUEST
+async function editRequest(id) {
+    try {
+        const director = document.querySelector("#editDirector").value;
+        const title = document.querySelector('#editMovieTitle').value;
+        const rating = document.querySelector('#editRating').value;
+        const res = axios.post(urlGlitch/${movie.id}, {
+            title: `${title}`,
+            director: `${director}`,
+            rating: `${rating}`
+        });
+        await axios.patch(`${urlGlitch}/${id}`)
+        await timeout(1200)
+        console.log('WINNING')
+        allMoviesAdded()
+    } catch (e) {
+        console.log(`delete request failed, ${e}`)
+    }
+}

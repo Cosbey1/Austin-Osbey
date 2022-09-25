@@ -89,12 +89,17 @@ function getDelete() { // this adds the event listener to each particular button
         }, false)
         //console.log(button)
     }}
+
+const openEdit = document.querySelector('#editMovie')
+
+
+// open modal
 function getEdit() {
     const editButtons = document.querySelectorAll('.cardButtonEdit')
     for (let button of editButtons) {
         let movieId = button.id
         button.addEventListener("click", function () {
-            console.log(movieId)
+            (movieId) // need function that opens the edit modal
         }, false)
         //console.log(button)
     }}
@@ -140,9 +145,33 @@ function getEdit() {
             console.log(`delete request failed, ${e}`)
         }
     }
-// }
 
+//EDIT MOVIE FUNCTION - SENDS PATCH REQUEST
+async function editRequest(id) {
+    try {
+        const director = document.querySelector("#editDirector").value;
+        const title = document.querySelector('#editMovieTitle').value;
+        const rating = document.querySelector('#editRating').value;
+        const res = axios.post(urlGlitch`/${movie.id}`, {
+            title: `${title}`,
+            director: `${director}`,
+            rating: `${rating}`
+        });
+        await axios.patch(`${urlGlitch}/${id}`)
+        await timeout(1200)
+        console.log('EDIT WIN')
+    } catch (e) {
+        console.log(`edit request failed, ${e}`)
+    }
+}
 
+const editRefresh = async () => {
+    await editRequest(); // patch request for the new movie
+    // await deleteMovie()
+    //await movieTileContainer.setHTML('');
+    await allMoviesAdded(); // get all movie data and populate cards
+    await addForm.reset(); // resets the form so fields empty
 
+};
 
 
