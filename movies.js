@@ -1,11 +1,11 @@
 "use strict";
 
-const getEditButton = document.querySelector('#testingEdit')
-function testingEdit () {
-    getEditButton.dataset.target = '#editMovie'
-    getEditButton.dataset.toggle = 'modal'
-    console.log('something happened')}
-testingEdit();
+// const getEditButton = document.querySelector('#testingEdit')
+// function testingEdit () {
+//     getEditButton.dataset.target = '#editMovie'
+//     getEditButton.dataset.toggle = 'modal'
+//     console.log('something happened')}
+// testingEdit();
 
 // URL for Glitch fake Movies API
 const urlGlitch = 'https://hissing-acute-crafter.glitch.me/movies'
@@ -65,22 +65,22 @@ const allMoviesAdded = async () => {
     let allMovieData = await getMoviesData() // runs get request for all movies from glitch
     for (let movie of allMovieData) {
         const createTile = document.createElement("div") //creates a div for every movie in the datalist
-        createTile.setAttribute("class", "card movie-tile"); //sets attributes for card
+        createTile.setAttribute("class", "card flex-fill d-flex movie-tile col-3 g-3 mx-2 p-3"); //sets attributes for card
         createTile.setHTML // sets all html inside new moviecard div
-        (` <div class="container">
-                        <div class="cardcontainer">
-                            <div class="photo">
+            (` <div class="container-fluid flex-fill d-flex">
                                 <!--movie info section-->
                                 <div class="content">
-                                    <h1 class="title">${movie.title}</h1>
-                                    <h4 class="director">${movie.director}</h4>
+                                    <div class="title h1">${movie.title}</div>
+                                    <div class="h3 director">${movie.director}</div>
+                                    <div class="h3 rating">${movie.rating}</div>
                                 </div>
-                                <div class="footer">
-             <button class="cardButtonEdit ms-1" id="edit${movie.id}" type="button">
+                                </div>
+<div class="footer align-self-end justify-content-end d-flex">
+             <button class="cardButtonEdit m-1" id="edit${movie.id}" type="button">
                   <i class="fa-solid fa-wand-magic-sparkles"></i> Edit</button>
-             <button class="cardButtonDelete" id="${movie.id}" type="button"><i class="fa-solid fa-trash-can"></i>Delete</button>
+             <button class="cardButtonDelete m-1" id="${movie.id}" type="button"><i class="fa-solid fa-trash-can"></i>Delete</button>
 </div>`
-        );
+            );
         movieTileContainer.append(createTile) // adds all the new creatTile divs into the movie til container
     }
     getDelete(); // running the get delete here associates the movie id with its button
@@ -98,10 +98,11 @@ function getDelete() { // this adds the event listener to each particular button
             deleteRequest(movieId)
         }, false)
         //console.log(button)
-    }}
+    }
+}
 
 // function assignEdit () {
-    // editButton.dataset.target = '#editMovie'
+// editButton.dataset.target = '#editMovie'
 // }
 
 // EDIT BUTTON FUNCTIONALITY
@@ -109,51 +110,61 @@ function getEdit() {
     const editButtons = document.querySelectorAll('.cardButtonEdit')
     for (let button of editButtons) {
         let movieId = button.id
-        button.addEventListener("click", function () { editForm.show(modalToggle)
+        button.addEventListener("click", function () {
             console.log(movieId) // need function that opens the edit modal
         }, false)
-    }}
+    }
+}
 
 // SHOW/HIDE LOADER AND MOVIES
 // TIMEOUT FUNCTION
-    function timeout(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // HIDE LOADER
-    const toggleLoading = async () => {
-        await timeout(1200)
-        let loader = document.querySelector('#loader-container')
-        loader.classList.add('hidden')
-    }
+const toggleLoading = async () => {
+    await timeout(1200)
+    let loader = document.querySelector('#loader-container')
+    loader.classList.add('hidden')
+}
 
 // SHOW MOVIE CONTAINER
-    const showMovies = async () => {
-        // await timeout(1300)
-        let movieContainer = document.querySelector('#movie-container')
-        movieContainer.classList.remove('hidden')
-    }
+const showMovies = async () => {
+    // await timeout(1300)
+    let movieContainer = document.querySelector('#movie-container')
+    movieContainer.classList.remove('hidden')
+}
 // FUNCTION TO RUN BOTH THE ADD CLASS TO LOADER AND REMOVE CLASS FROM MOVIE CONTAINER
-    const mainFunc = async () => {
-        await toggleLoading();
-        await showMovies();
-    }
+const mainFunc = async () => {
+    await toggleLoading();
+    await showMovies();
+}
 
-    mainFunc()
+mainFunc()
 // END SHOW / HIDE LOADER & MOVIES
 
 
 //DELETE MOVIE FUNCTION - SENDS DELETE REQUEST
-    async function deleteRequest(id) {
-        try {
-            await axios.delete(`${urlGlitch}/${id}`)
-            await timeout(1200)
-            console.log('WINNING')
-            allMoviesAdded()
-        } catch (e) {
-            console.log(`delete request failed, ${e}`)
-        }
+async function deleteRequest(id) {
+    try {
+        await axios.delete(`${urlGlitch}/${id}`)
+        await timeout(1200)
+        console.log('WINNING')
+        allMoviesAdded()
+    } catch (e) {
+        console.log(`delete request failed, ${e}`)
     }
+}
+
+// EDIT REFRESH -
+const editRefresh = async () => {
+    await editRequest(); // patch request for the new movie
+    // await deleteMovie()
+    //await movieTileContainer.setHTML('');
+    await allMoviesAdded(); // get all movie data and populate cards
+    await editForm.reset(); // resets the form so fields empty
+};
 
 //EDIT MOVIE FUNCTION - SENDS PATCH REQUEST
 async function editRequest(id) {
@@ -161,6 +172,7 @@ async function editRequest(id) {
         const director = document.querySelector("#editDirector").value;
         const title = document.querySelector('#editMovieTitle').value;
         const rating = document.querySelector('#editRating').value;
+        const id = document.querySelector('#editID').value;
         const res = axios.patch(`${urlGlitch}/${id}`, {
             title: `${title}`,
             director: `${director}`,
@@ -175,18 +187,10 @@ async function editRequest(id) {
     }
 }
 
-// EDIT REFRESH -
-const editRefresh = async () => {
-    await editRequest(); // patch request for the new movie
-    // await deleteMovie()
-    //await movieTileContainer.setHTML('');
-    await allMoviesAdded(); // get all movie data and populate cards
-    await editForm.reset(); // resets the form so fields empty
-};
 
-
-// FUNCTION TO OPEN EDIT MODAL
-
-const autoFillEdit = function (id, director, title, rating) {
-
-}
+//
+// // FUNCTION TO OPEN EDIT MODAL
+//
+// const autoFillEdit = function (id, director, title, rating) {
+//
+// }
