@@ -69,3 +69,42 @@ async function editRequest(id) {
         console.log(`delete request failed, ${e}`)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function fartsSmell (num) {
+    // code I want to execute
+    let totalStink = num * 1.75;
+    return totalStink
+}
+
+fartsSmell(3);
+
+
