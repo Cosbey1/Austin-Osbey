@@ -87,7 +87,13 @@ const allMoviesAdded = async () => {
     getEdit();
 };
 
+
 allMoviesAdded(); // initial call to retrieve all the movie data and populate the cards
+
+
+//Add open modal functionality to button
+//element.setAttribute("data-bs-target", "#editMovie") same for toggle.
+//data-bs-target="#editmovie" data-bs-toggle="modal"
 
 // DELETE BUTTON FUNCTIONALITY
 function getDelete() { // this adds the event listener to each particular button and passes the deleterequest function with the id as a parameter
