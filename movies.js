@@ -193,10 +193,3 @@ async function editRequest(id) {
     }
 }
 
-
-//
-// // FUNCTION TO OPEN EDIT MODAL
-//
-// const autoFillEdit = function (id, director, title, rating) {
-//
-// }
